@@ -6,15 +6,27 @@ class Board extends Component {
     this.state = {
       squares: Array(9).fill(null),
       xIsNext: true,
+      counter: 0,
     };
   }
   handleClick(i) {
     const squares = this.state.squares.slice();
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
+    if (calculateWinner(squares)) {
+      alert("We Have A Winner!! → " + squares[i]);
+      return;
+    } else if (squares[i]) {
+      alert("This Box Is Already Filled");
+    } else {
+      this.state.counter += 1;
+      if (this.state.counter > 9){
+          alert("Game Over No Winner!!")
+      }
+      squares[i] = this.state.xIsNext ? "X" : "O";
+      this.setState({
         squares: squares,
-        xIsNext: !this.state.xIsNext
-    });
+        xIsNext: !this.state.xIsNext,
+      });
+    }
   }
   renderSquare(i) {
     return (
@@ -25,7 +37,13 @@ class Board extends Component {
     );
   }
   render() {
-    const status = "Next Player: Is: " + (this.state.xIsNext ? 'X' : 'O');
+    const winner = calculateWinner(this.state.squares);
+    let status;
+    if (winner) {
+      status = "Winner" + winner;
+    } else {
+      status = "Next Player: Is: " + (this.state.xIsNext ? "X" : "O");
+    }
     return (
       <div>
         <div className="status">{status}</div>
@@ -48,4 +66,26 @@ class Board extends Component {
     );
   }
 }
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+
+const restartGame = () =>
 export default Board;
