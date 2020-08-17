@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Square from "./Square";
 class Board extends Component {
   constructor(props) {
@@ -87,5 +87,5 @@ function calculateWinner(squares) {
   return null;
 }
 
-const restartGame = () =>
+// const restartGame = () =>
 export default Board;
