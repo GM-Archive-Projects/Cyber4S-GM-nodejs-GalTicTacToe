@@ -29,7 +29,7 @@ const Game = () => {
   const jumpTo = step => {
       setStepNumber(step);
       setXisNext(step % 2 === 0)
-
+      
   };
 
   const renderMoves = () => (
@@ -37,7 +37,7 @@ const Game = () => {
           const destination = move ? `Got to Move #${move}`: 'Go To Start';
           return (
               <li key={move}>
-              <button onClick={() => jumpTo(move)}>{destination} </button>
+              <button onClick={() => jumpTo(move)}>{destination}</button>
 
               </li>
 
