@@ -72,11 +72,11 @@ const Game = () => {
     <>
       <Board squares={history[stepNumber]} onClick={handleClick} />
       <div style={styles}>
-        <p>
+        <div>
           {winner
             ? <Winner winner={winner} setOpen={setGameWon} gameWon ={gameWon}   />
             : "Next Player is: " + (xIsNext ? "X" : "O")}
-        </p>
+        </div>
         <li>
         <button onClick={() => newGame()}>"Reset Game"</button>
         </li>

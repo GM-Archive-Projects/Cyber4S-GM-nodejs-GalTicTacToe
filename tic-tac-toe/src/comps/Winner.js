@@ -10,8 +10,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 export default function FormDialog(props) {
   const [name, setName] = React.useState();
 
-  const handleClickOpen = () => {
-    props.setOpen(true);
+  const handleRegister = (e) => {
+    props.setOpen(false);
+    console.log(name)
+
   };
 
   const handleClose = () => {
@@ -47,7 +49,7 @@ export default function FormDialog(props) {
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleRegister} color="primary">
             Register
           </Button>
         </DialogActions>
