@@ -44,6 +44,15 @@ const Game = () => {
           )
       }) 
   );
+
+  const resetGame = () => {
+    setHistory([Array(9).fill(null)])
+    setStepNumber(0);
+    setXisNext(true); 
+    calculateWinner(history[stepNumber]);
+  }
+
+
   return (
     <>
       <Board squares={history[stepNumber]} onClick={handleClick} />
@@ -53,7 +62,9 @@ const Game = () => {
             ? "The Winner is: " + winner
             : "Next Player is: " + (xIsNext ? "X" : "O")}
         </p>
+        <button onClick={() => resetGame()}>"Reset Game"</button>
         {renderMoves()}
+        <br/>
       </div>
     </>
   );
