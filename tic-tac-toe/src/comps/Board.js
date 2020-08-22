@@ -22,8 +22,5 @@ const Board = ({squares, onClick}) => (
 );
 
 
-const onClick = (str) => {
-    console.log(str)
-}
 
 export default Board;
