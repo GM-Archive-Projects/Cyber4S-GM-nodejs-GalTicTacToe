@@ -1,0 +1,20 @@
+import React from "react";
+import { Modal } from '@material-ui/core';
+import trophy from './../trophy.jpg'
+
+const WinModal = (props) => {
+    return  (
+        <Modal  open={props.open}>            
+            <div className="winModal">
+                <img className='trophy' src={trophy} alt='WINNER WINNER' />
+                <label className='winnerInput' htmlFor='input'>
+                Enter Winner Name:
+                    <input 
+                        placeholder= 'Winner Name'
+                        onChange={props.writeName} />
+                    <button onClick={props.logWinner}> Send Name To Winner Board</button>                
+                </label>
+            </div>
+          </Modal>)
+}
+export default WinModal
