@@ -6,7 +6,7 @@ app.use(express.json());
 const port = 3030;
 
 app.get("/api/v1/records", async (req, res) => {
-  let data = await fs.readFile("winnersBoard.json", (err, data) => {
+  await fs.readFile("winnersBoard.json", (err, data) => {
     if (err) throw err;
     data = JSON.parse(data);
     res.send(data);
@@ -18,7 +18,7 @@ app.post("/api/v1/records", async (req, res) => {
     data = JSON.parse(data);
     data.push(req.body);
     data = JSON.stringify(data);
-    fs.writeFile("winnerBoard.json", data, (err) => {
+    fs.writeFile("winnersBoard.json", data, (err) => {
       if (err) throw err;
       console.log("Winner Board Updated with new Winner");
       res.send("Winner Board Updated with new Winner");
