@@ -63,8 +63,8 @@ const Game = () => {
             : "Next Player is: " + (xIsNext ? "X" : "O")}
         </p>
         <button onClick={() => resetGame()}>"Reset Game"</button>
-        {renderMoves()}
         <br/>
+        {renderMoves()}
       </div>
     </>
   );
