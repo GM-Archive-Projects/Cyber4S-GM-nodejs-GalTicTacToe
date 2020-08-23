@@ -1,27 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Board from "./Board";
 import Winner from "./Winner";
+import axios from 'axios';
 
 const styles = {
   width: "200px",
   margin: "20px auto",
 };
 const Game = () => {
-  // const initialState = {
-  //   history: [
-  //     {
-  //       squares: Array(9).fill(null)
-  //     }
-  //   ],
-  //   stepNumber: 0,
-  //   xIsNext: true
-  // }  
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXisNext] = useState(true);
   const [gameWon, setGameWon] = useState(false);
   const [winnerName, setWinnerName] = React.useState("");
-
   // const [winnerSaved, setWinnerSaved] = useState(false)
   // const [winnerName, setWinnerName] = useState("");
   const winner = calculateWinner(history[stepNumber]);
@@ -69,9 +60,7 @@ const Game = () => {
     setXisNext(true);
     calculateWinner(history[stepNumber]);
   };
-
-  const prettyDate = () => {
-    const t = new Date();
+  const prettyDate = (t) => {
     const date = ('0' + t.getDate()).slice(-2);
     const month = ('0' + (t.getMonth() + 1)).slice(-2);
     const year = t.getFullYear();
@@ -80,6 +69,17 @@ const Game = () => {
     const seconds = ('0' + t.getSeconds()).slice(-2);
     const time = `${date}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
     return time
+  }
+  const handleCloseWinner = async (name) =>  {
+    let objRecord = {
+      name : "gal" ,
+      duration : "5455Sec" ,
+      date : prettyDate(new Date())
+    }
+    console.log(objRecord)
+    axios.post('/api/v1/records', objRecord);
+    setGameWon(false);
+    newGame();
   }
 
   return (
@@ -93,6 +93,7 @@ const Game = () => {
               setOpen={setGameWon}
               gameWon={gameWon}
               setWinnerName={setWinnerName}
+              handleCloseWinner={handleCloseWinner}
             />
           ) : (
             "Next Player is: " + (xIsNext ? "X" : "O")

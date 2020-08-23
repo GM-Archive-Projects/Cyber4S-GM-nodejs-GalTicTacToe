@@ -46,7 +46,7 @@ export default function FormDialog(props) {
             <Button onClick={handleClose} color="primary">
               Close
             </Button>
-            <Button onClick={handleRegister} color="primary">
+            <Button onClick={props.handleCloseWinner} color="primary">
               Register
             </Button>
           </DialogActions>
