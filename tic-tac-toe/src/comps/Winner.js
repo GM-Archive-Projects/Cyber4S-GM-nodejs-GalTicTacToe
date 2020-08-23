@@ -11,9 +11,8 @@ export default function FormDialog(props) {
   const [name, setName] = React.useState();
 
   const handleRegister = (e) => {
+    props.setWinnerName(name)
     props.setOpen(false);
-    console.log(name)
-
   };
 
   const handleClose = () => {
@@ -22,38 +21,35 @@ export default function FormDialog(props) {
 
   return (
     <div>
-      {props.winner && ( 
-      <Dialog
-        open={props.gameWon}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Register as Winner</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-          Insert you Name to be Register to the Game Board
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Winner Name"
-            type="string"
-            fullWidth
-            onChange={(e) => {
-              let query = e.target.value;
-              setName(query);
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
-          <Button onClick={handleRegister} color="primary">
-            Register
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {props.winner && (
+        <Dialog open={props.gameWon} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Register as Winner</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Insert you Name to be Register to the Game Board
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Winner Name"
+              type="string"
+              fullWidth
+              onChange={(e) => {
+                let query = e.target.value;
+                setName(query);
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Close
+            </Button>
+            <Button onClick={handleRegister} color="primary">
+              Register
+            </Button>
+          </DialogActions>
+        </Dialog>
       )}
     </div>
   );
