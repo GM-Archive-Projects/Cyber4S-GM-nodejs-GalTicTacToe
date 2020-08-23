@@ -12,6 +12,7 @@ export default function FormDialog(props) {
 
   const handleRegister = (e) => {
     props.setWinnerName(name)
+    console.log(name)
     props.setOpen(false);
   };
 
