@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from  "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,17 +8,18 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 export default function FormDialog(props) {
-  const [name, setName] = React.useState();
-
-  const handleRegister = (e) => {
-    props.setOpen(false);
-    console.log(name)
-
-  };
+  const [name, setName] = React.useState("");
 
   const handleClose = () => {
-    props.setOpen(false);
+    props.setGameWon(false);
   };
+
+  useEffect(()=>{
+    if(props.winner){
+      props.setGameWon(true);
+    }
+  },[props.winner])
+
 
   return (
     <div>
@@ -49,7 +50,7 @@ export default function FormDialog(props) {
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
-          <Button onClick={handleRegister} color="primary">
+          <Button onClick={props.handleRegister(name)} color="primary">
             Register
           </Button>
         </DialogActions>
