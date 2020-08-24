@@ -8,26 +8,29 @@ const styles = {
   margin: "20px auto",
 };
 const Game = () => {
-  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [history, setHistory] = useState([{squares:Array(9).fill(null)}]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXisNext] = useState(true);
   const [gameWon, setGameWon] = useState(false);
   const [winnerName, setWinnerName] = React.useState("");
   // const [winnerSaved, setWinnerSaved] = useState(false)
   // const [winnerName, setWinnerName] = useState("");
-  const winner = calculateWinner(history[stepNumber]);
 
+  let current = history[stepNumber];
+  const winner = calculateWinner(current.squares);
+  // const winner = calculateWinner(history[stepNumber]);
+  
   const handleClick = (i) => {
-    const timeInHistory = history.slice(0, stepNumber + 1);
-    const current = timeInHistory[stepNumber];
-    const squares = [...current];
+    setHistory(history.slice(0, stepNumber + 1))
+    current = history[history.length - 1];
+    const squares = current.squares.slice();
     // If the user Click an occupied square or if the game is finished and we have a winner return
     if (winner || squares[i]) return;
 
     // Put an X or an O in the clicked square
     squares[i] = xIsNext ? "X" : "O";
-    setHistory([...timeInHistory, squares]);
-    setStepNumber(timeInHistory.length);
+    setHistory(history.concat([{ squares }]));
+    setStepNumber(history.length);
     setXisNext(!xIsNext);
   };
 
@@ -55,11 +58,9 @@ const Game = () => {
     });
 
   const newGame = () => {
-    setHistory([Array(9).fill(null)]);
-    setStepNumber(0);
-    setXisNext(true);
-    calculateWinner(history[stepNumber]);
+    jumpTo(0)
   };
+
   const prettyDate = (t) => {
     const date = ('0' + t.getDate()).slice(-2);
     const month = ('0' + (t.getMonth() + 1)).slice(-2);
@@ -85,7 +86,7 @@ const Game = () => {
 
   return (
     <>
-      <Board squares={history[stepNumber]} onClick={handleClick} />
+      <Board squares={current.squares} onClick={handleClick} />
       <div style={styles}>
         <div>
           {winner ? (
