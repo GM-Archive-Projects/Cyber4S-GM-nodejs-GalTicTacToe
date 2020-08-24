@@ -71,13 +71,14 @@ const Game = () => {
     return time
   }
   const handleCloseWinner = async (name) =>  {
+    console.log(name)
     let objRecord = {
-      name : "gal" ,
+      name : name,
       duration : "5455Sec" ,
       date : prettyDate(new Date())
     }
     console.log(objRecord)
-    axios.post('/api/v1/records', objRecord);
+    await axios.post('/api/v1/records', objRecord);
     setGameWon(false);
     newGame();
   }
